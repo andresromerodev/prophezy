@@ -48,6 +48,46 @@ class ProfileScreen extends HookConsumerWidget {
                 _ProfileStatBox(number: '3ETH', title: 'Rewards'),
               ],
             ),
+            SizedBox(height: 32),
+      // Voting history section
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Voting history",
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            // Voting history list
+            Column(
+              children: [
+                _VotingHistoryRow(
+                  imageUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg',
+                  title: 'Crypto Market Analysis',
+                  description: 'Prediction for BTC price in June.',
+                ),
+                SizedBox(height: 12),
+                _VotingHistoryRow(
+                  imageUrl: 'https://img.youtube.com/vi/3JZ_D3ELwOQ/0.jpg',
+                  title: 'Ethereum Upgrade',
+                  description: 'Voted on ETH 2.0 staking rewards.',
+                ),
+                SizedBox(height: 12),
+                _VotingHistoryRow(
+                  imageUrl: 'https://img.youtube.com/vi/L_jWHffIx5E/0.jpg',
+                  title: 'Altcoin Season',
+                  description: 'Discussed top 5 altcoins for 2025.',
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
 
           SizedBox(height: 32),
           Column(
@@ -107,6 +147,59 @@ class _ProfileStatBox extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+// Add this widget below your _ProfileStatBox class (outside of it)
+class _VotingHistoryRow extends StatelessWidget {
+  final String imageUrl;
+  final String title;
+  final String description;
+
+  const _VotingHistoryRow({
+    required this.imageUrl,
+    required this.title,
+    required this.description,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: Image.network(
+            imageUrl,
+            width: 48,
+            height: 48,
+            fit: BoxFit.cover,
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                description,
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: Colors.grey,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
