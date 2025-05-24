@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'screens/profile_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  await Hive.initFlutter();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,8 +24,65 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class UpcomingMatchesScreen extends StatelessWidget {
+class UpcomingMatchesScreen extends StatefulWidget {
   const UpcomingMatchesScreen({super.key});
+
+  @override
+  State<UpcomingMatchesScreen> createState() => _UpcomingMatchesScreenState();
+}
+
+class _UpcomingMatchesScreenState extends State<UpcomingMatchesScreen> {
+  int _selectedIndex = 0;
+
+  Widget _getScreen(int index) {
+    switch (index) {
+      case 0:
+        return const _HomeContent();
+      case 1:
+        return const Center(child: Text('Leaderboard Screen'));
+      case 2:
+        return const ProfileScreen();
+      default:
+        return const _HomeContent();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final contentWidth = screenWidth < 600 ? screenWidth : 480.0;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Upcoming Matches",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.leaderboard), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+      ),
+
+      body: _getScreen(_selectedIndex),
+    );
+  }
+}
+
+class _HomeContent extends StatelessWidget {
+  const _HomeContent();
 
   Widget sectionTitle(String title) => Padding(
     padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
@@ -50,7 +111,9 @@ class UpcomingMatchesScreen extends StatelessWidget {
             child: const Text("Predict Win"),
           ),
         ),
+
         const SizedBox(width: 16),
+
         Expanded(
           child: ElevatedButton(
             onPressed: () {},
@@ -101,41 +164,22 @@ class UpcomingMatchesScreen extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final contentWidth = screenWidth < 600 ? screenWidth : 480.0;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Upcoming Matches",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        leading: IconButton(icon: const Icon(Icons.menu), onPressed: () {}),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.leaderboard), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-        currentIndex: 0,
-        onTap: (index) {},
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: SizedBox(
-            width: contentWidth,
-            child: Column(
-              children: [
-                matchSection("UFC", [
-                  'https://dummyimage.com/400x200/cccccc/000000&text=UFC+1',
-                  'https://dummyimage.com/400x200/cccccc/000000&text=UFC+2',
-                  'https://dummyimage.com/400x200/cccccc/000000&text=UFC+3',
-                ]),
-                matchSection("Basketball", [
-                  'https://dummyimage.com/400x200/cccccc/000000&text=Basketball+1',
-                  'https://dummyimage.com/400x200/cccccc/000000&text=Basketball+2',
-                ]),
-              ],
-            ),
+    return SingleChildScrollView(
+      child: Center(
+        child: SizedBox(
+          width: contentWidth,
+          child: Column(
+            children: [
+              matchSection("UFC", [
+                'https://dummyimage.com/400x200/cccccc/000000&text=UFC+1',
+                'https://dummyimage.com/400x200/cccccc/000000&text=UFC+2',
+                'https://dummyimage.com/400x200/cccccc/000000&text=UFC+3',
+              ]),
+              matchSection("Basketball", [
+                'https://dummyimage.com/400x200/cccccc/000000&text=Basketball+1',
+                'https://dummyimage.com/400x200/cccccc/000000&text=Basketball+2',
+              ]),
+            ],
           ),
         ),
       ),

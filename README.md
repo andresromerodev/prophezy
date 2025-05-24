@@ -16,3 +16,17 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Installation
+
+1. Enable MS Developer Mode if you're on Windows
+
+```sh
+start ms-settings:developers
+```
+
+2. Install Starknet.dart
+
+```sh
+flutter pub add flutter_riverpod hive_flutter wallet_kit
+```
