@@ -67,21 +67,21 @@ class ProfileScreen extends HookConsumerWidget {
             Column(
               children: [
                 _VotingHistoryRow(
-                  imageUrl: 'https://img.youtube.com/vi/dQw4w9WgXcQ/0.jpg',
-                  title: 'Crypto Market Analysis',
-                  description: 'Prediction for BTC price in June.',
+                  imageUrl: 'https://a.espncdn.com/i/teamlogos/nba/500/lal.png',
+                  title: 'Lakers vs Warriors',
+                  description: 'Voted: Lakers win by 5+ points.',
                 ),
                 SizedBox(height: 12),
                 _VotingHistoryRow(
-                  imageUrl: 'https://img.youtube.com/vi/3JZ_D3ELwOQ/0.jpg',
-                  title: 'Ethereum Upgrade',
-                  description: 'Voted on ETH 2.0 staking rewards.',
+                  imageUrl: 'https://a.espncdn.com/i/teamlogos/nba/500/bos.png',
+                  title: 'Celtics vs Heat',
+                  description: 'Voted: Celtics score over 110.',
                 ),
                 SizedBox(height: 12),
                 _VotingHistoryRow(
-                  imageUrl: 'https://img.youtube.com/vi/L_jWHffIx5E/0.jpg',
-                  title: 'Altcoin Season',
-                  description: 'Discussed top 5 altcoins for 2025.',
+                  imageUrl: 'https://a.espncdn.com/i/teamlogos/nba/500/mil.png',
+                  title: 'Bucks vs Nets',
+                  description: 'Voted: Giannis gets a double-double.',
                 ),
               ],
             ),
