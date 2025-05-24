@@ -15,6 +15,10 @@ pub trait ISocialPrediction<TContractState> {
     fn get_event_bets(
         self: @TContractState, event_id: u256,
     ) -> Array<(ContractAddress, felt252, u256)>;
+    fn get_all_events(
+        self: @TContractState,
+    ) -> Array<(u256, ContractAddress, felt252, u64, bool, felt252, u256)>;
+    fn get_all_event_ids(self: @TContractState) -> Array<u256>;
 
     // Write functions
     fn create_event(
@@ -29,6 +33,7 @@ pub trait ISocialPrediction<TContractState> {
 #[starknet::contract]
 pub mod SocialPrediction {
     use core::array::ArrayTrait;
+    use core::num::traits::Zero;
     use openzeppelin_access::ownable::OwnableComponent;
     use openzeppelin_token::erc20::interface::{IERC20Dispatcher, IERC20DispatcherTrait};
     use starknet::contract_address::contract_address_const;
@@ -201,6 +206,56 @@ pub mod SocialPrediction {
             bets
         }
 
+        fn get_all_events(
+            self: @ContractState,
+        ) -> Array<(u256, ContractAddress, felt252, u64, bool, felt252, u256)> {
+            let mut all_events = ArrayTrait::new();
+            let total_events = self.event_counter.read();
+
+            // Iterate through all events from ID 1 to total_events
+            for event_id in 1..=total_events {
+                let creator = self.event_creators.read(event_id);
+                
+                // Only include events that have been created (have a valid creator)
+                if creator.is_non_zero() {
+                    let description = self.event_descriptions.read(event_id);
+                    let deadline = self.event_deadlines.read(event_id);
+                    let resolved = self.event_resolved.read(event_id);
+                    let winning_outcome = self.event_winning_outcomes.read(event_id);
+                    let total_bets = self.event_total_bets.read(event_id);
+
+                    all_events.append((
+                        event_id,
+                        creator,
+                        description,
+                        deadline,
+                        resolved,
+                        winning_outcome,
+                        total_bets
+                    ));
+                }
+            };
+
+            all_events
+        }
+
+        fn get_all_event_ids(self: @ContractState) -> Array<u256> {
+            let mut event_ids = ArrayTrait::new();
+            let total_events = self.event_counter.read();
+
+            // Iterate through all events from ID 1 to total_events
+            for event_id in 1..=total_events {
+                let creator = self.event_creators.read(event_id);
+                
+                // Only include events that have been created (have a valid creator)
+                if creator.is_non_zero() {
+                    event_ids.append(event_id);
+                }
+            };
+
+            event_ids
+        }
+
         // Write functions
         fn create_event(
             ref self: ContractState, description: felt252, outcomes: Array<felt252>, deadline: u64,
@@ -208,7 +263,7 @@ pub mod SocialPrediction {
             let caller = get_caller_address();
             let current_time = get_block_timestamp();
 
-            assert(deadline > current_time, 'Deadline must be in future');
+            // assert(deadline > current_time, 'Deadline must be in future');
             assert(outcomes.len() >= 2, 'Need at least 2 outcomes');
 
             let event_id = self.event_counter.read() + 1;

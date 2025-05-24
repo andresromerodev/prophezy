@@ -3,6 +3,508 @@
  * You should not edit it manually or your changes might be overwritten.
  */
 
-const deployedContracts = {} as const;
+const deployedContracts = {
+  devnet: {
+    SocialPrediction: {
+      address:
+        "0x629bc241e838f100d53d82c46a60584e7f6c3afa8eb85ab78ed3a2b916091db",
+      abi: [
+        {
+          type: "impl",
+          name: "SocialPredictionImpl",
+          interface_name: "contracts::prophezy::ISocialPrediction",
+        },
+        {
+          type: "struct",
+          name: "core::integer::u256",
+          members: [
+            {
+              name: "low",
+              type: "core::integer::u128",
+            },
+            {
+              name: "high",
+              type: "core::integer::u128",
+            },
+          ],
+        },
+        {
+          type: "enum",
+          name: "core::bool",
+          variants: [
+            {
+              name: "False",
+              type: "()",
+            },
+            {
+              name: "True",
+              type: "()",
+            },
+          ],
+        },
+        {
+          type: "interface",
+          name: "contracts::prophezy::ISocialPrediction",
+          items: [
+            {
+              type: "function",
+              name: "get_event",
+              inputs: [
+                {
+                  name: "event_id",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "(core::starknet::contract_address::ContractAddress, core::felt252, core::array::Array::<core::felt252>, core::integer::u64, core::bool, core::felt252, core::integer::u256)",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "get_user_stats",
+              inputs: [
+                {
+                  name: "user",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+              ],
+              outputs: [
+                {
+                  type: "(core::integer::u256, core::integer::u256, core::integer::u256)",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "get_bet",
+              inputs: [
+                {
+                  name: "event_id",
+                  type: "core::integer::u256",
+                },
+                {
+                  name: "user",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+              ],
+              outputs: [
+                {
+                  type: "(core::felt252, core::integer::u256, core::bool)",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "get_event_counter",
+              inputs: [],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "get_contract_balance",
+              inputs: [],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "get_event_bets",
+              inputs: [
+                {
+                  name: "event_id",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::array::Array::<(core::starknet::contract_address::ContractAddress, core::felt252, core::integer::u256)>",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "get_all_events",
+              inputs: [],
+              outputs: [
+                {
+                  type: "core::array::Array::<(core::integer::u256, core::starknet::contract_address::ContractAddress, core::felt252, core::integer::u64, core::bool, core::felt252, core::integer::u256)>",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "get_all_event_ids",
+              inputs: [],
+              outputs: [
+                {
+                  type: "core::array::Array::<core::integer::u256>",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "create_event",
+              inputs: [
+                {
+                  name: "description",
+                  type: "core::felt252",
+                },
+                {
+                  name: "outcomes",
+                  type: "core::array::Array::<core::felt252>",
+                },
+                {
+                  name: "deadline",
+                  type: "core::integer::u64",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "place_bet",
+              inputs: [
+                {
+                  name: "event_id",
+                  type: "core::integer::u256",
+                },
+                {
+                  name: "outcome",
+                  type: "core::felt252",
+                },
+                {
+                  name: "amount",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "resolve_event",
+              inputs: [
+                {
+                  name: "event_id",
+                  type: "core::integer::u256",
+                },
+                {
+                  name: "winning_outcome",
+                  type: "core::felt252",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "claim_reward",
+              inputs: [
+                {
+                  name: "event_id",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "withdraw",
+              inputs: [
+                {
+                  name: "amount",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+          ],
+        },
+        {
+          type: "impl",
+          name: "OwnableImpl",
+          interface_name: "openzeppelin_access::ownable::interface::IOwnable",
+        },
+        {
+          type: "interface",
+          name: "openzeppelin_access::ownable::interface::IOwnable",
+          items: [
+            {
+              type: "function",
+              name: "owner",
+              inputs: [],
+              outputs: [
+                {
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "transfer_ownership",
+              inputs: [
+                {
+                  name: "new_owner",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "renounce_ownership",
+              inputs: [],
+              outputs: [],
+              state_mutability: "external",
+            },
+          ],
+        },
+        {
+          type: "constructor",
+          name: "constructor",
+          inputs: [
+            {
+              name: "owner",
+              type: "core::starknet::contract_address::ContractAddress",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+          kind: "struct",
+          members: [
+            {
+              name: "previous_owner",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "new_owner",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+          kind: "struct",
+          members: [
+            {
+              name: "previous_owner",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "new_owner",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
+          kind: "enum",
+          variants: [
+            {
+              name: "OwnershipTransferred",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferred",
+              kind: "nested",
+            },
+            {
+              name: "OwnershipTransferStarted",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::OwnershipTransferStarted",
+              kind: "nested",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::prophezy::SocialPrediction::EventCreated",
+          kind: "struct",
+          members: [
+            {
+              name: "event_id",
+              type: "core::integer::u256",
+              kind: "key",
+            },
+            {
+              name: "creator",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "description",
+              type: "core::felt252",
+              kind: "data",
+            },
+            {
+              name: "deadline",
+              type: "core::integer::u64",
+              kind: "data",
+            },
+            {
+              name: "timestamp",
+              type: "core::integer::u64",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::prophezy::SocialPrediction::BetPlaced",
+          kind: "struct",
+          members: [
+            {
+              name: "event_id",
+              type: "core::integer::u256",
+              kind: "key",
+            },
+            {
+              name: "user",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "outcome",
+              type: "core::felt252",
+              kind: "data",
+            },
+            {
+              name: "amount",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "timestamp",
+              type: "core::integer::u64",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::prophezy::SocialPrediction::EventResolved",
+          kind: "struct",
+          members: [
+            {
+              name: "event_id",
+              type: "core::integer::u256",
+              kind: "key",
+            },
+            {
+              name: "winning_outcome",
+              type: "core::felt252",
+              kind: "data",
+            },
+            {
+              name: "total_bets",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "timestamp",
+              type: "core::integer::u64",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::prophezy::SocialPrediction::RewardClaimed",
+          kind: "struct",
+          members: [
+            {
+              name: "event_id",
+              type: "core::integer::u256",
+              kind: "key",
+            },
+            {
+              name: "user",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "reward",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "timestamp",
+              type: "core::integer::u64",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::prophezy::SocialPrediction::Event",
+          kind: "enum",
+          variants: [
+            {
+              name: "OwnableEvent",
+              type: "openzeppelin_access::ownable::ownable::OwnableComponent::Event",
+              kind: "flat",
+            },
+            {
+              name: "EventCreated",
+              type: "contracts::prophezy::SocialPrediction::EventCreated",
+              kind: "nested",
+            },
+            {
+              name: "BetPlaced",
+              type: "contracts::prophezy::SocialPrediction::BetPlaced",
+              kind: "nested",
+            },
+            {
+              name: "EventResolved",
+              type: "contracts::prophezy::SocialPrediction::EventResolved",
+              kind: "nested",
+            },
+            {
+              name: "RewardClaimed",
+              type: "contracts::prophezy::SocialPrediction::RewardClaimed",
+              kind: "nested",
+            },
+          ],
+        },
+      ],
+      classHash:
+        "0x7a032663aeb40a733297529cf0f0c593c7c1d8b5e1b63b48c677d3a2b3bbf03",
+    },
+  },
+} as const;
 
 export default deployedContracts;
