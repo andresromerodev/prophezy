@@ -126,13 +126,13 @@ class UpcomingMatchesScreen extends StatelessWidget {
             child: Column(
               children: [
                 matchSection("UFC", [
-                  'https://placehold.co/400x200?text=UFC+1',
-                  'https://placehold.co/400x200?text=UFC+2',
-                  'https://placehold.co/400x200?text=UFC+3',
+                  'https://dummyimage.com/400x200/cccccc/000000&text=UFC+1',
+                  'https://dummyimage.com/400x200/cccccc/000000&text=UFC+2',
+                  'https://dummyimage.com/400x200/cccccc/000000&text=UFC+3',
                 ]),
                 matchSection("Basketball", [
-                  'https://placehold.co/400x200?text=Basketball+1',
-                  'https://placehold.co/400x200?text=Basketball+2',
+                  'https://dummyimage.com/400x200/cccccc/000000&text=Basketball+1',
+                  'https://dummyimage.com/400x200/cccccc/000000&text=Basketball+2',
                 ]),
               ],
             ),
