@@ -30,5 +30,3 @@ start ms-settings:developers
 ```sh
 flutter pub add flutter_riverpod hive_flutter wallet_kit
 ```
-<img src="https://github.com/user-attachments/assets/d62267fd-121a-4d92-b6b9-64ad280703e4" width="50%" />
-
