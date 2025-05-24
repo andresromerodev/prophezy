@@ -170,14 +170,14 @@ class _HomeContent extends StatelessWidget {
           width: contentWidth,
           child: Column(
             children: [
-              matchSection("UFC", [
-                'https://dummyimage.com/400x200/cccccc/000000&text=UFC+1',
-                'https://dummyimage.com/400x200/cccccc/000000&text=UFC+2',
-                'https://dummyimage.com/400x200/cccccc/000000&text=UFC+3',
+              matchSection("Soccer", [
+                'https://resources.premierleague.com/premierleague/photos/players/250x250/p165153.png',
+                'https://resources.premierleague.com/premierleague/photos/players/250x250/p103025.png',
+                'https://resources.premierleague.com/premierleague/photos/players/250x250/p165153.png',
               ]),
               matchSection("Basketball", [
-                'https://dummyimage.com/400x200/cccccc/000000&text=Basketball+1',
-                'https://dummyimage.com/400x200/cccccc/000000&text=Basketball+2',
+                'https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png',
+                'https://cdn.nba.com/headshots/nba/latest/1040x760/203507.png',
               ]),
             ],
           ),
