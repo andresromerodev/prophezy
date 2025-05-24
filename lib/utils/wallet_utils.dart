@@ -3,9 +3,6 @@ import 'package:secure_store/secure_store.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../widgets/wallet_components.dart';
-import 'package:wallet_kit/wallet_kit.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class Account {
   final String address;
@@ -117,33 +114,6 @@ const String walletPrivateKey =
 const String walletAccountAddress =
     '0x014571fff782f1f02dfe350e4f066aa26c090cb08577d780e073529b9b60f9a8';
 
-Future<double> getStarknetBalance(String address) async {
-  try {
-    final response = await http.post(
-      Uri.parse('https://starknet-goerli.infura.io/v3/YOUR-PROJECT-ID'),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({
-        'jsonrpc': '2.0',
-        'method': 'starknet_getBalance',
-        'params': [address],
-        'id': 1,
-      }),
-    );
-
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      if (data['result'] != null) {
-        // Convert from wei to ETH
-        return double.parse(data['result']) / 1e18;
-      }
-    }
-    return 0.0;
-  } catch (e) {
-    debugPrint('Error fetching balance: $e');
-    return 0.0;
-  }
-}
-
 Future<void> connectWallet(BuildContext context) async {
   try {
     final store = PasswordStore(getPassword: () async => '');
@@ -160,17 +130,8 @@ Future<void> connectWallet(BuildContext context) async {
     if (context.mounted) {
       final ref = ProviderScope.containerOf(context);
       ref.read(accountAddressProvider.notifier).state = walletAccountAddress;
-
-      // Fetch actual balance from Starknet
-      try {
-        final balance = await getStarknetBalance(walletAccountAddress);
-        ref.read(balanceProvider.notifier).state = balance;
-      } catch (e) {
-        debugPrint('Error fetching balance: $e');
-        ref.read(balanceProvider.notifier).state = 0.0;
-      }
-
-      ref.read(networkProvider.notifier).state = 'Starknet';
+      ref.read(balanceProvider.notifier).state = 0.0; // Initial balance
+      ref.read(networkProvider.notifier).state = 'Starknet'; // Network name
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Wallet connected!')),
