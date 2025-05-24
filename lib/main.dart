@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'screens/profile_screen.dart';
+import 'screens/leaderboard_scree.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -39,7 +40,7 @@ class _UpcomingMatchesScreenState extends State<UpcomingMatchesScreen> {
       case 0:
         return const _HomeContent();
       case 1:
-        return const Center(child: Text('Leaderboard Screen'));
+        return const LeaderboardScreen();
       case 2:
         return const ProfileScreen();
       default:
@@ -55,7 +56,7 @@ class _UpcomingMatchesScreenState extends State<UpcomingMatchesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "Upcoming Matches",
+          "Prophezy",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
